@@ -11,5 +11,5 @@ import { DashboardComponent } from './books/dashboard/dashboard.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'book-rating';
+  title = 'Book Rating';
 }
