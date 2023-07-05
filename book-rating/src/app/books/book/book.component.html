@@ -1,3 +1,6 @@
-<h2>{{ book?.title || 'dshfjkdfhgkjfd' }}</h2>
+<div *ngIf="book">
+  <h2>Title: {{ book.title }}</h2>
 
-<p>{{ book?.description }}</p>
+  <h3>Beschreibung</h3>
+  <p>{{ book.description }}</p>
+</div>
