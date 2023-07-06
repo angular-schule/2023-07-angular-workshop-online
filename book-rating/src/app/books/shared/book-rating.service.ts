@@ -6,10 +6,9 @@ import { Book } from './book';
 })
 export class BookRatingService {
 
-  constructor() { }
+  constructor() {}
 
   rateUp(book: Book): Book {
-
     // Early Exit
     if (book.rating >= 5) {
       return book;

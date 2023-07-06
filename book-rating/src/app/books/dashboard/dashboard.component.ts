@@ -23,14 +23,16 @@ export class DashboardComponent {
         title: 'Angular',
         description: 'Grundlagen und mehr',
         rating: 5,
-        price: 42.9
+        price: 42.9,
+        authors: ['Claudia', 'Roman']
       },
       {
         isbn: '456',
         title: 'Vue.js',
         description: 'Das grüne Framework',
         rating: 3,
-        price: 34.9
+        price: 34.9,
+        authors: ['Günther', 'Sarah']
       }
     ];
   }

@@ -4,7 +4,7 @@ export interface Book {
   description: string;
   rating: number;
   price: number;
-  // authors: string[];
+  authors: string[];
 }
 
 // Argumente für Rohdaten + Interface:
