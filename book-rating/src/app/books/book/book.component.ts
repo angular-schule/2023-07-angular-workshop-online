@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Book } from '../shared/book';
 
 @Component({
   selector: 'app-book',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CurrencyPipe],
   templateUrl: './book.component.html',
   styleUrls: ['./book.component.scss']
 })

@@ -6,3 +6,7 @@ export interface Book {
   price: number;
   // authors: string[];
 }
+
+// Argumente für Rohdaten + Interface:
+// - Serialisierbarkeit / JSON
+// - Klonbarkeit / Immutability
