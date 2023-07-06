@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Book } from '../shared/book';
+import { RatingComponent } from "../rating/rating.component";
 
 @Component({
-  selector: 'app-book',
-  standalone: true,
-  imports: [CommonModule, CurrencyPipe],
-  templateUrl: './book.component.html',
-  styleUrls: ['./book.component.scss']
+    selector: 'app-book',
+    standalone: true,
+    templateUrl: './book.component.html',
+    styleUrls: ['./book.component.scss'],
+    imports: [CommonModule, CurrencyPipe, RatingComponent]
 })
 export class BookComponent {
   // hier können Daten von der Elternkomponente hineinfließen
