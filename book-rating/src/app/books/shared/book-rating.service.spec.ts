@@ -19,7 +19,8 @@ describe('BookRatingService', () => {
       title: '',
       description: '',
       price: 4,
-      rating: 3
+      rating: 3,
+      authors: []
     };
   });
 

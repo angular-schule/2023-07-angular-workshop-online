@@ -11,6 +11,8 @@ describe('DashboardComponent', () => {
   beforeEach(() => {
     // Ersatz für den BookRatingService
     const ratingMock = {
+      MINRATING: 1,
+      MAXRATING: 5,
       rateUp: (b: Book) => b,
       rateDown: (b: Book) => b,
     };
@@ -37,5 +39,24 @@ describe('DashboardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call service.rateUp() for doRateUp()', () => {});
+  it('should call service.rateUp() for doRateUp()', () => {
+    // Arrange
+    // Wir fordern den BRS an, aber tatsächlich ist der unser ratingMock
+    const rs = TestBed.inject(BookRatingService);
+    const testBook = { isbn: 'aaa' } as Book; // Type Assertion
+
+    // spyOn(rs, 'rateUp').and.returnValue(testBook);
+    // spyOn(rs, 'rateUp').and.callFake(b => b)
+    spyOn(rs, 'rateUp').and.callThrough();
+
+
+    // Act
+    component.doRateUp(testBook)
+
+    // Assert
+    // prüfen, ob rateUp aufgerufen wurde mit testBook
+    expect(rs.rateUp).toHaveBeenCalled();
+    expect(rs.rateUp).toHaveBeenCalledTimes(1);
+    expect(rs.rateUp).toHaveBeenCalledOnceWith(testBook);
+  });
 });
