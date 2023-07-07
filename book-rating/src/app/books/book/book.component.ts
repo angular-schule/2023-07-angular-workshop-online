@@ -14,6 +14,8 @@ export class BookComponent {
   // hier können Daten von der Elternkomponente hineinfließen
   // von oben nach unten
   @Input({ required: true }) book?: Book;
+  @Input() minRating = 0;
+  @Input() maxRating = 10;
 
   // wir senden Daten an die Elternkomponente
   // von unten nach oben

@@ -2,6 +2,8 @@
   *ngFor="let b of books"
   (rateUp)="doRateUp($event)"
   (rateDown)="doRateDown($event)"
+  [minRating]="1"
+  [maxRating]="5"
   [book]="b"></app-book>
 
 

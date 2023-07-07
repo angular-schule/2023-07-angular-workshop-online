@@ -14,9 +14,10 @@ import { BookRatingService } from '../shared/book-rating.service';
 export class DashboardComponent {
   books: Book[] = [];
 
-  // rs = inject(BookRatingService);
+  // private rs = inject(BookRatingService);
 
   constructor(private rs: BookRatingService) {
+
     this.books = [
       {
         isbn: '123',
