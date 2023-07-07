@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, computed, inject, signal } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Book } from '../shared/book';
 import { RatingComponent } from "../rating/rating.component";
@@ -8,9 +8,15 @@ import { RatingComponent } from "../rating/rating.component";
     standalone: true,
     templateUrl: './book.component.html',
     styleUrls: ['./book.component.scss'],
-    imports: [CommonModule, CurrencyPipe, RatingComponent]
+    imports: [CommonModule, CurrencyPipe, RatingComponent],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookComponent {
+
+  value = signal(0);
+  bigNumbers = computed(() => this.value() * 1000);
+  bigNumbersWithLabel = computed(() => 'Number: ' + this.bigNumbers());
+
   // hier können Daten von der Elternkomponente hineinfließen
   // von oben nach unten
   @Input({ required: true }) book?: Book;
@@ -21,6 +27,13 @@ export class BookComponent {
   // von unten nach oben
   @Output() rateUp = new EventEmitter<Book>();
   @Output() rateDown = new EventEmitter<Book>();
+
+
+  constructor() {
+    setInterval(() => {
+      this.value.set(Math.random());
+    }, 1000)
+  }
 
   doRateUp() {
     if (this.book) {
