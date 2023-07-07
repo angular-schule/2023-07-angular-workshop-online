@@ -16,7 +16,7 @@ export class DashboardComponent {
 
   // private rs = inject(BookRatingService);
 
-  constructor(private rs: BookRatingService) {
+  constructor(public rs: BookRatingService) {
 
     this.books = [
       {

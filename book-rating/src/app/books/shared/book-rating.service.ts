@@ -6,11 +6,14 @@ import { Book } from './book';
 })
 export class BookRatingService {
 
+  readonly MINRATING = 1;
+  readonly MAXRATING = 5;
+
   constructor() {}
 
   rateUp(book: Book): Book {
     // Early Exit
-    if (book.rating >= 5) {
+    if (book.rating >= this.MAXRATING) {
       return book;
     }
 
@@ -24,7 +27,7 @@ export class BookRatingService {
     return {
       ...book,
       // rating: book.rating > 1 ? book.rating - 1 : 1
-      rating: Math.max(book.rating - 1, 1)
+      rating: Math.max(book.rating - 1, this.MINRATING)
     };
   }
 }
