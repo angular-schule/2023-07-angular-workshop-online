@@ -2,13 +2,14 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, In
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Book } from '../shared/book';
 import { RatingComponent } from "../rating/rating.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-book',
     standalone: true,
     templateUrl: './book.component.html',
     styleUrls: ['./book.component.scss'],
-    imports: [CommonModule, CurrencyPipe, RatingComponent],
+    imports: [CommonModule, CurrencyPipe, RatingComponent, RouterLink],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookComponent {
