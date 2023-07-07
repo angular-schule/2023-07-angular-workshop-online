@@ -13,10 +13,6 @@ import { RatingComponent } from "../rating/rating.component";
 })
 export class BookComponent {
 
-  value = signal(0);
-  bigNumbers = computed(() => this.value() * 1000);
-  bigNumbersWithLabel = computed(() => 'Number: ' + this.bigNumbers());
-
   // hier können Daten von der Elternkomponente hineinfließen
   // von oben nach unten
   @Input({ required: true }) book?: Book;
@@ -27,13 +23,6 @@ export class BookComponent {
   // von unten nach oben
   @Output() rateUp = new EventEmitter<Book>();
   @Output() rateDown = new EventEmitter<Book>();
-
-
-  constructor() {
-    setInterval(() => {
-      this.value.set(Math.random());
-    }, 1000)
-  }
 
   doRateUp() {
     if (this.book) {
