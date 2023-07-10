@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardComponent } from './dashboard.component';
 import { Book } from '../shared/book';
 import { BookRatingService } from '../shared/book-rating.service';
+import { of } from 'rxjs';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -16,6 +17,11 @@ describe('DashboardComponent', () => {
       rateUp: (b: Book) => b,
       rateDown: (b: Book) => b,
     };
+
+    // Ausblick: Ersatz für den BookStoreService
+    const storeMock = {
+      getAll: () => of([])
+    }
 
 
     TestBed.configureTestingModule({
@@ -48,7 +54,6 @@ describe('DashboardComponent', () => {
     // spyOn(rs, 'rateUp').and.returnValue(testBook);
     // spyOn(rs, 'rateUp').and.callFake(b => b)
     spyOn(rs, 'rateUp').and.callThrough();
-
 
     // Act
     component.doRateUp(testBook)
