@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Book } from '../shared/book';
+import { BookStoreService } from '../shared/book-store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-create',
@@ -11,6 +14,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class BookCreateComponent {
 
+  private bs = inject(BookStoreService);
+  private router = inject(Router);
 
   bookForm = new FormGroup({
     isbn: new FormControl('', {
@@ -64,6 +69,21 @@ export class BookCreateComponent {
     // return !!control.getError(errorCode) && control.touched;
     return control.hasError(errorCode) && control.touched;
 
+  }
+
+  submitForm() {
+    if (this.bookForm.invalid) {
+      return;
+    }
+
+    const newBook: Book = {
+      ...this.bookForm.getRawValue(),
+      authors: []
+    };
+
+    this.bs.create(newBook).subscribe(receivedBook => {
+      this.router.navigate(['/books', receivedBook.isbn]);
+    });
   }
 
 }
