@@ -81,8 +81,13 @@ export class BookCreateComponent {
       authors: []
     };
 
-    this.bs.create(newBook).subscribe(receivedBook => {
-      this.router.navigate(['/books', receivedBook.isbn]);
+    this.bs.create(newBook).subscribe({
+      next: receivedBook => {
+        this.router.navigate(['/books', receivedBook.isbn]);
+      },
+      error: err => {
+
+      }
     });
   }
 
