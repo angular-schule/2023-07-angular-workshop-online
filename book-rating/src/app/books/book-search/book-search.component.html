@@ -1,3 +1,13 @@
 <div class="form-group">
   <input type="text" class="form-control" [formControl]="searchControl">
 </div>
+
+<!--<div *ngFor="let book of books$ | async">
+  {{ book.title }}
+</div>-->
+
+
+<ul *ngIf="books$ | async as books">
+  <li *ngFor="let b of books">{{ b.title }}</li>
+  <li *ngIf="books.length === 0">Keine Ergebnisse!</li>
+</ul>
