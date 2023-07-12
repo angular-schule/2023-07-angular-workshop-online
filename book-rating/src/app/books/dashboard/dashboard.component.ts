@@ -4,6 +4,9 @@ import { Book } from '../shared/book';
 import { BookComponent } from "../book/book.component";
 import { BookRatingService } from '../shared/book-rating.service';
 import { BookStoreService } from '../shared/book-store.service';
+import { Store } from '@ngrx/store';
+import { BookActions } from '../store/book.actions';
+import { selectBooks } from '../store/book.selectors';
 
 @Component({
     selector: 'app-dashboard',
@@ -15,13 +18,17 @@ import { BookStoreService } from '../shared/book-store.service';
 export class DashboardComponent {
   books: Book[] = [];
 
+  books$ = this.store.select(selectBooks);
+
   // private rs = inject(BookRatingService);
   // private bs = inject(BookStoreService)
 
-  constructor(public rs: BookRatingService, private bs: BookStoreService) {
-    this.bs.getAll().subscribe(books => {
+  constructor(public rs: BookRatingService, private bs: BookStoreService, private store: Store) {
+    this.store.dispatch(BookActions.loadBooks());
+
+    this.store.select(selectBooks).subscribe(books => {
       this.books = books;
-    });
+    })
   }
 
   doRateUp(book: Book) {
