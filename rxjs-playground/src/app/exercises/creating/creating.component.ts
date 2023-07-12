@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable, of, from, timer, interval, ReplaySubject, map, filter } from 'rxjs';
+import { Observable, of, from, timer, interval, ReplaySubject, map, filter, Observer, Subscriber } from 'rxjs';
 import { HistoryComponent } from '../../shared/history/history.component';
 
 @Component({
@@ -28,9 +28,16 @@ export class CreatingComponent {
     // of('A', 'B', 'C')
     // from([1,2,3,4,5])
     // interval(1000)     // ---0---1---2---3---4--- ...
+    // timer(1000, 1000)  // ---0---1---2---3---4--- ...
     // timer(3000)        // ---------0|
     // timer(3000, 1000)  // ---------0---1---2---3---4--- ...
     // timer(0, 1000)     // 0---1---2---3---4--- ...
+
+
+    // Signatur für eigenen Operator
+    /*function foo (source$: Observable<any>): Observable<any> {
+      return source$.pipe();
+    }*/
 
     timer(0, 1000).pipe(
       map(e => e * 3),
@@ -44,19 +51,31 @@ export class CreatingComponent {
 
     /******************************/
 
-    function producer(sub: any) {
+    function producer(sub: Subscriber<number>) {
       const result = Math.random();
       sub.next(result);
 
       sub.next(10);
       sub.next(20);
 
-      setTimeout(() => sub.next(100), 1000)
-      setTimeout(() => sub.next(200), 2000)
-      setTimeout(() => sub.complete(), 3000)
+
+      const intervalId = setInterval(() => {
+        sub.next(Date.now());
+        console.log('Interval', Date.now());
+      }, 1000)
+
+      // setTimeout(() => sub.next(200), 2000)
+      // setTimeout(() => sub.complete(), 3000)
+
+
+      // Teardown Logic
+      // wird beim unsubscribe ausgeführt
+      return () => {
+        clearInterval(intervalId);
+      };
     }
 
-    const observer = {
+    const observer: Observer<number> = {
       next: (e: number) => console.log(e),
       error: (e: any) => console.error(e),
       complete: () => console.log('COMPLETE')
@@ -65,8 +84,15 @@ export class CreatingComponent {
     // producer(observer);
 
 
-    const myObs$ = new Observable<number>(producer);
-    // myObs$.subscribe(observer);
+    const myObs2$ = new Observable<string>(sub => {
+      sub.next('');
+    });
+    const myObs$ = new Observable(producer);
+    const sub = myObs$.subscribe(observer);
+
+
+    // Subscription später wieder beenden
+    setTimeout(() => sub.unsubscribe(), 5000);
 
 
 
